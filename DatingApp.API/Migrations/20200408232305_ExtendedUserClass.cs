@@ -8,6 +8,11 @@ namespace DatingApp.API.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
+                name: "City",
+                table: "Users",
+                nullable: true);
+
+            migrationBuilder.AddColumn<string>(
                 name: "Country",
                 table: "Users",
                 nullable: true);
@@ -88,6 +93,10 @@ namespace DatingApp.API.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Photos");
+
+            migrationBuilder.DropColumn(
+                name: "City",
+                table: "Users");
 
             migrationBuilder.DropColumn(
                 name: "Country",
