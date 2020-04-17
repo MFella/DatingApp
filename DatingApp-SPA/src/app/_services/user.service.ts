@@ -127,4 +127,15 @@ constructor(private http: HttpClient) { }
     return this.http.post(this.baseUrl + 'users/' + id + '/messages', message);
   }
 
+  deleteMess(id: number, userId: number)
+  {
+    return this.http.post(this.baseUrl + 'users/' + userId + '/messages/' + id, {});
+  }
+
+  markAsRead(userId: number, messId: number)
+  {
+    this.http.post(this.baseUrl + 'users/' + userId + '/messages/' + messId + '/read', {})
+      .subscribe();
+  }
+
 }
