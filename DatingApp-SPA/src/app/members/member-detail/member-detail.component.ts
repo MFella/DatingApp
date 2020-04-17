@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/_models/user';
 import { UserService } from 'src/app/_services/user.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import {NgxGalleryOptions} from '@kolkov/ngx-gallery';
 import {NgxGalleryImage} from '@kolkov/ngx-gallery';
 import {NgxGalleryAnimation} from '@kolkov/ngx-gallery';
+import { TabsetComponent } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-member-detail',
@@ -13,6 +14,8 @@ import {NgxGalleryAnimation} from '@kolkov/ngx-gallery';
   styleUrls: ['./member-detail.component.css']
 })
 export class MemberDetailComponent implements OnInit {
+
+  @ViewChild('memberTabs', {static: true}) memberTabs: TabsetComponent;
   user: User;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
@@ -25,6 +28,11 @@ export class MemberDetailComponent implements OnInit {
     
       this.user = data['user'];
     });
+
+    this.route.queryParams.subscribe(params => {
+      const selTab = params['tab'];
+      this.memberTabs.tabs[selTab > 0 ? selTab : 0].active = true;
+    })
 
   /*Config for @kolkov/ngx-gallery*/     
 
@@ -53,30 +61,7 @@ export class MemberDetailComponent implements OnInit {
   ];
 
     this.galleryImages = this.getImages();
-    // },
-    // {
-    //   small: 'assets/img/gallery/2-small.jpeg',
-    //   medium: 'assets/img/gallery/2-medium.jpeg',
-    //   big: 'assets/img/gallery/2-big.jpeg'
-    // },
-    // {
-    //   small: 'assets/img/gallery/3-small.jpeg',
-    //   medium: 'assets/img/gallery/3-medium.jpeg',
-    //   big: 'assets/img/gallery/3-big.jpeg'
-    // },{
-    //   small: 'assets/img/gallery/4-small.jpeg',
-    //   medium: 'assets/img/gallery/4-medium.jpeg',
-    //   big: 'assets/img/gallery/4-big.jpeg'
-    // },
-    // {
-    //   small: 'assets/img/gallery/5-small.jpeg',
-    //   medium: 'assets/img/gallery/5-medium.jpeg',
-    //   big: 'assets/img/gallery/5-big.jpeg'
-    // }
- 
-
-
-
+   
 
   }
 
@@ -92,13 +77,10 @@ export class MemberDetailComponent implements OnInit {
       }
       return imageUrls;
     }
-  // loadUser(){
-  //   this.userServ.getUser(+this.route.snapshot.params['id'])
-  //     .subscribe((user: User) => {
-  //       this.user = user;
-  //     }, err => {
-  //       this.alertify.error(err);
-  //     });
-  // }
+
+    selectTabs(tabId: number)
+    {
+      this.memberTabs.tabs[tabId].active = true;
+    }
 
 }

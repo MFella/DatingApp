@@ -16,8 +16,6 @@ export class MemberCardComponent implements OnInit {
     private alertify: AlertifyService) { }
 
   ngOnInit() {
-    console.log(this.user);
-    console.log('-----');
   }
 
   sendLike(id: number)

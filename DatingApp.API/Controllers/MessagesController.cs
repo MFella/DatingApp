@@ -62,11 +62,30 @@ namespace DatingApp.API.Controllers
 
              return Ok(messes);
         }
+        
+        [HttpGet("thread/{recipientId}")]
+        public async Task<IActionResult> GetMessageThread( int userId, int recipientId)
+        {
+            if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            {
+                return Unauthorized();
+            }
+
+            var messesFromRepo = await _repo.GetMessageThread(userId, recipientId);
+
+            var messThread = _mapper.Map<IEnumerable<MessageToReturnDto>>(messesFromRepo);
+
+            return Ok(messThread);
+
+        }
 
         [HttpPost]
         public async Task<IActionResult> CreateMessage(int userId, MessageForCreationDto messageForCreationDto)
         {
-            if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+
+            var sender = await _repo.GetUser(userId);
+
+            if(sender.Id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
             {
                 return Unauthorized();
             }
@@ -83,12 +102,10 @@ namespace DatingApp.API.Controllers
             var message = _mapper.Map<Message>(messageForCreationDto);
 
             _repo.Add(message);
-
-            var messToRet = _mapper.Map<MessageForCreationDto>(message);
-            
+     
             if(await _repo.SaveAll())
             {
-                //var messageToRet = _mapper.Map<MessageForCreationDto>(message);
+                var messToRet = _mapper.Map<MessageToReturnDto>(message);
                 return CreatedAtRoute("GetMessage", new {
                     userId, id = message.Id
                 }, messToRet);
