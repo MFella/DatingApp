@@ -92,7 +92,6 @@ constructor(private http: HttpClient) { }
     const paginatedResult: PaginatedResult<Message[]> = new PaginatedResult<Message[]>();
     let params = new HttpParams();
 
-    //console.log(messageContainer);
     params = params.append('MessageContainer', messageContainer);
 
     if(page != null && itemsPerPage != null)
@@ -113,7 +112,6 @@ constructor(private http: HttpClient) { }
         return paginatedResult;
       })
     );
-
 
   }
 

@@ -11,6 +11,7 @@ import { User } from './_models/user';
 })
 export class AppComponent implements OnInit{
 
+  title:string = 'DatingApp';
 
   jwtHelper = new JwtHelperService();
 
