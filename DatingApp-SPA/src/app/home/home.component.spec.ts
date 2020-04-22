@@ -37,13 +37,12 @@ fdescribe('HomeComponent', () => {
   it('should create new div after registerToggle', async(() => 
   {
     const compiled = fixture.debugElement.nativeElement;
-    //lack of component, when registerMode == false
+    // lack of component, when registerMode == false
     expect(compiled.querySelector('app-register')).toEqual(null);
     component.registerToggle();
     fixture.detectChanges();
-    //Here we are!
+    // app-register should not be null!
     expect(compiled.querySelector('app-register')).not.toEqual(null);
-
   }));
 
 });

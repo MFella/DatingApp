@@ -8,9 +8,8 @@ import { User } from '../_models/user';
 fdescribe('Service: User', () => {
 
   let injector: TestBed;
-  let service: UserService;
   let httpMock: HttpTestingController;
-
+  let userServ: UserService;
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -20,7 +19,7 @@ fdescribe('Service: User', () => {
     injector = getTestBed();
     //service = injector.inject(UserService);
     httpMock = injector.inject(HttpTestingController);
-
+    //userServ = injector.inject(UserService);
   });
 
 
@@ -53,6 +52,7 @@ fdescribe('Service: User', () => {
     expect(req.request.method).toBe("POST");
 
     httpMock.verify();
+
   })));
 
   
