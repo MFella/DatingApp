@@ -7,7 +7,7 @@ import { RegisterComponent } from './register.component';
 import { of } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpClient, HttpHandler } from '@angular/common/http';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 
@@ -22,8 +22,8 @@ fdescribe('RegisterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      providers: [HttpClientTestingModule, HttpClient, HttpHandler, FormBuilder, {provide: Router, useValue: router}],
+      imports: [RouterTestingModule, HttpClientTestingModule],
+      providers: [FormBuilder, {provide: Router, useValue: router}],
       declarations: [ RegisterComponent ]
     })
     .compileComponents();

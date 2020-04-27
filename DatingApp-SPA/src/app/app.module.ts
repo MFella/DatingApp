@@ -35,10 +35,10 @@ import { MemberMessagesComponent } from './members/member-messages/member-messag
 
 
 
-export function tokenGetter(){
+export function tokenGetter() {
    return localStorage.getItem('token');
 }
-export class CustomHammerConfig extends HammerGestureConfig{
+export class CustomHammerConfig extends HammerGestureConfig {
    overrides = {
       pinch: {enable: false},
       rotate: {enable: false}
@@ -62,7 +62,6 @@ export class CustomHammerConfig extends HammerGestureConfig{
    ],
    imports: [
       BrowserModule,
-      HttpClient,
       HttpClientModule,
       FormsModule,
       ReactiveFormsModule,
